@@ -3,6 +3,7 @@ import { useSessionStore } from '../../stores/sessionStore';
 import { Play, Pause, SkipBack, SkipForward, ShieldAlert } from 'lucide-react';
 import { TrackMap } from './TrackMap';
 import axios from 'axios';
+import { API_BASE } from '../../lib/constants';
 
 export default function ReplayView() {
   const { currentSession } = useSessionStore();
@@ -15,7 +16,7 @@ export default function ReplayView() {
     const fetchReplay = async () => {
       if (!currentSession) return;
       try {
-        const res = await axios.get(`http://localhost:8000/api/sessions/${currentSession.session_key}/replay`);
+        const res = await axios.get(`${API_BASE}/sessions/${currentSession.session_key}/replay`);
         setFrames(res.data.frames || {});
         setTotalLaps(res.data.total_laps || 0);
         setCurrentLap(1);

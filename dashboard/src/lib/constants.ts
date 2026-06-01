@@ -3,7 +3,12 @@
  * Team colors, compound colors, and configuration.
  */
 
-export const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8000';
+const rawApiBase = import.meta.env.VITE_API_BASE || 'http://localhost:8000';
+const trimmedApiBase = rawApiBase.replace(/\/+$/, '');
+
+export const API_BASE = trimmedApiBase.endsWith('/api')
+  ? trimmedApiBase
+  : `${trimmedApiBase}/api`;
 
 // F1 Team colors
 export const TEAM_COLORS: Record<string, string> = {

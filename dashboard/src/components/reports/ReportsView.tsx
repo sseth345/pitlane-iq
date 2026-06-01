@@ -3,7 +3,7 @@ import { useSessionStore } from '../../stores/sessionStore';
 import { FileText, Download, Share2 } from 'lucide-react';
 
 export default function ReportsView() {
-  const { currentSession, drivers } = useSessionStore();
+  const { currentSession, drivers, strategy } = useSessionStore();
   const [selectedReport, setSelectedReport] = useState<string | null>(drivers[0]?.code || null);
 
   if (!currentSession) {

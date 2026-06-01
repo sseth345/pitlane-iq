@@ -35,6 +35,7 @@ class Settings:
     # Server
     BACKEND_PORT: int = int(os.getenv("BACKEND_PORT", "8000"))
     FRONTEND_URL: str = os.getenv("FRONTEND_URL", "http://localhost:5173")
+    ALLOWED_ORIGINS: str = os.getenv("ALLOWED_ORIGINS", "")
 
     # Supabase
     SUPABASE_URL: str = os.getenv("SUPABASE_URL", "")
@@ -55,6 +56,16 @@ class Settings:
             p = _project_root / p
         p.mkdir(parents=True, exist_ok=True)
         return p
+
+    @property
+    def cors_origins(self) -> list[str]:
+        defaults = [
+            self.FRONTEND_URL,
+            "http://localhost:5173",
+            "http://localhost:3333",
+        ]
+        extra = [origin.strip() for origin in self.ALLOWED_ORIGINS.split(",") if origin.strip()]
+        return list(dict.fromkeys([origin for origin in defaults + extra if origin]))
 
 
 settings = Settings()
