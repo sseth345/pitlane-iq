@@ -1,0 +1,36 @@
+# Environment variables
+.env
+.env.*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+dist/
+build/
+*.egg-info/
+
+# Node
+node_modules/
+dist/
+build/
+.npm/
+
+# FastF1 / Data cache
+data/cache/
+data/*.db
+data/*.sqlite
+data/*.json
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# Logs
+*.log
+logs/

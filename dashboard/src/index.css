@@ -1,0 +1,178 @@
+/* ═══════════════════════════════════════════════════════════════════
+   PitLane IQ — Elite Telemetry Design System
+   Target: Pixel-perfect replication of the reference dashboard
+   ═══════════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*, *::before, *::after { box-sizing: border-box; }
+
+:root {
+  /* ── Background Hierarchy ─────────────────────────────────────── */
+  --bg-void:    #0a0a0f;   /* Outermost canvas — nearly black */
+  --bg-base:    #0e0f14;   /* Main surface */
+  --bg-sidebar: #0b0c10;   /* Sidebar — slightly darker */
+  --bg-panel:   #13141a;   /* Card surface */
+  --bg-row-alt: #111218;   /* Alternating table rows */
+  --bg-hover:   rgba(255,255,255,0.04);
+
+  /* ── Borders ─────────────────────────────────────────────────── */
+  --border-hard:   rgba(255,255,255,0.10);
+  --border-mid:    rgba(255,255,255,0.07);
+  --border-soft:   rgba(255,255,255,0.04);
+  --border-ghost:  rgba(255,255,255,0.02);
+
+  /* ── Text ────────────────────────────────────────────────────── */
+  --txt-primary:   #e8eaed;  /* Main readable text */
+  --txt-secondary: #9aa0ab;  /* Muted / labels */
+  --txt-dim:       #5a6070;  /* Very dim / grid lines */
+  --txt-white:     #ffffff;
+
+  /* ── Semantic Brand Colors ───────────────────────────────────── */
+  --red:    #e10600;   /* F1 Red, critical */
+  --cyan:   #00d2be;   /* Teal/cyan — pit open, live */
+  --yellow: #ffd600;   /* Watch, Medium tyre */
+  --purple: #9b59b6;   /* Fastest lap, Alt trace */
+  --green:  #22c55e;   /* Clear, DRS enabled */
+  --orange: #ff8c00;   /* McLaren, undercut warning */
+  --blue:   #1e90ff;   /* Primary trace lines */
+
+  /* Glow variants */
+  --cyan-glow:   rgba(0, 210, 190, 0.18);
+  --red-glow:    rgba(225, 6, 0, 0.18);
+  --yellow-glow: rgba(255, 214, 0, 0.18);
+
+  /* ── Team Colors (2024) ──────────────────────────────────────── */
+  --team-rbr: #3671c6;
+  --team-fer: #e8002d;
+  --team-mer: #27f4d2;
+  --team-mcl: #ff8000;
+  --team-amr: #229971;
+  --team-alp: #ff87bc;
+  --team-wil: #64c4ff;
+  --team-haa: #b6babd;
+  --team-rb:  #6692ff;
+  --team-sau: #52e252;
+
+  /* ── Tyre ────────────────────────────────────────────────────── */
+  --soft:   #e8002d;
+  --medium: #ffd600;
+  --hard:   #ebebeb;
+
+  /* ── Spacing (8px base grid) ─────────────────────────────────── */
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s5: 20px;
+  --s6: 24px;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg-void);
+}
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+h1, h2, h3, h4, h5, h6 { color: var(--txt-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Typography helpers ────────────────────────────────────────── */
+.t-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--txt-secondary);
+}
+.t-label-xs {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--txt-dim);
+}
+.t-data {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+}
+.t-hero {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* ── Scrollbar ─────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 3px; height: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 2px; }
+
+/* ── Transition helpers ────────────────────────────────────────── */
+.tr { transition: all 0.18s ease; }
+
+/* ── Tyre dots ─────────────────────────────────────────────────── */
+.tyre-dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* ── Recharts overrides ────────────────────────────────────────── */
+.recharts-wrapper,
+.recharts-surface { overflow: visible; }
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke: rgba(255,255,255,0.04) !important;
+}
+.recharts-xAxis .recharts-cartesian-axis-tick text,
+.recharts-yAxis .recharts-cartesian-axis-tick text {
+  fill: var(--txt-dim) !important;
+  font-size: 9px !important;
+  font-family: 'JetBrains Mono', monospace !important;
+}
+
+/* ── Status pills ──────────────────────────────────────────────── */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border: 1px solid;
+}
+.pill-cyan   { color: var(--cyan);   background: rgba(0,210,190,0.12); border-color: rgba(0,210,190,0.3); }
+.pill-red    { color: var(--red);    background: rgba(225,6,0,0.12);   border-color: rgba(225,6,0,0.3); }
+.pill-yellow { color: var(--yellow); background: rgba(255,214,0,0.12); border-color: rgba(255,214,0,0.3); }
+.pill-green  { color: var(--green);  background: rgba(34,197,94,0.12); border-color: rgba(34,197,94,0.3); }
