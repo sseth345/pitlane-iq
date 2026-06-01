@@ -1,6 +1,6 @@
 # 🏎️ PitLane IQ
 
-**Next-Generation F1 Race Intelligence & Strategy Platform** · *Built for the IBM AI Builders Challenge*
+**Next-Generation F1 Race Intelligence & Strategy Platform** · 
 
 PitLane IQ is an advanced, AI-powered pitwall dashboard that brings real-time Formula 1 strategy, telemetry analysis, and predictive modeling directly to your browser. By ingesting historical and session-level telemetry via FastF1, the platform calculates tire degradation curves, predicts undercut threats, and visualizes stint strategies.
 
